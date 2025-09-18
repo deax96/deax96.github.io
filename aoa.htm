@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <title>yooo</title>
+        <link rel="stylesheet" href="aos.css">
+
+        <!--- <style>
+            p{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        </style> --->
+
+    </head>
+
+
+    <body>
+
+        <div class="topbar">
+
+            <button class="topbutton">
+
+                <img src="jsjsjsjs.png" height="60%" title="asies jsjsjs"/>
+    
+            </button>
+
+            <button class="topbutton">
+
+                    <p>damn</p>
+
+            </button>
+
+            <button class="topbutton">
+
+                    <p>home</p>
+
+            </button>
+
+        </div>
+
+        <div class="main">
+
+            <div class="scroll" id="scrollBox">
+
+                <img src="jsjsjsjs.png" class="imagescroll" id="imageScroll" style="top: 0%"/>
+                <img src="jsjsjsjs.png" class="imagescroll" id="imageScrollAux" style="top: 100%"/>
+                
+                <img src="images/arrow_down.png" class="scrollbutton" id="scrollButton"/>
+                <img src="images/heart_blank.png" style = "top: 71%; display:none;" class="scrollbutton" id="likeButton"/>
+
+                <div class="redbar" id="barDisplay"> </div>
+            
+            </div>
+            
+
+            <div class="resto">
+
+                <h1 style="height: 5%; font-family: Lucida Console; font-size: 2.2em">dopamine generator</h1>
+
+                <h1 id="currentDopamineText"style="height: 5%;"></h1>
+
+                <h2 id="currentInsomniaText"style="height: 1%; display:none"></h2>
+                
+                <br>
+
+                <div class="upgrades" style="gap: 3%; height: auto; min-height: auto;">
+
+                    <button class="tabbutton" id="upgradesMenuButton" style="color:rgb(255, 255, 255)">Upgrades</button>
+                    <p>|</p>
+                    <button class="tabbutton"  id="perksMenuButton">Perks</button>
+                    <p>|</p>
+                    <button class="tabbutton"  id="prestigeMenuButton">Prestige</button>
+                    <p>|</p>
+                    <button class="tabbutton"  id="statsMenuButton">Stats</button>
+                    <p>|</p>
+                    <button class="tabbutton"  id="galleryMenuButton">Gallery</button>
+                    <p>|</p>
+                    <button class="tabbutton"  id="settingsMenuButton">Settings</button>
+                        
+                </div>
+
+
+                <div class="upgradeTab" id="upgradesTab">
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="upgrade01"></button>
+                        <button class="gamebutton" id="upgrade03"></button>
+                        <button class="gamebutton" id="upgrade06"></button>
+                        <button class="gamebutton" id="upgrade07"></button>
+                        
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="upgrade15"></button>
+                        <button class="gamebutton" id="upgrade09"></button>
+                        <button class="gamebutton" id="upgrade10"></button>
+                        <button class="gamebutton" id="upgrade16"></button>
+
+                    </div>
+
+                    <br>
+                    
+                    <div class="upgrades">
+                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus multiplier</button>
+                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus game speed</button>
+                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus duration</button>
+                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus cooldown</button>
+
+                    </div>
+
+                </div>
+
+                <div class="upgradeTab" id="perksTab" style="display:none">
+
+                    <p id="perksDisplay"></p>
+                
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="perk02"></button>
+                        <button class="gamebutton" id="perk04"></button>
+                        <button class="gamebutton" id="perk05"></button>
+                        <button class="gamebutton" id="perk08"></button>                        
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="perk16" style="background-color:rgb(88, 1, 1);">mult based on number of liked videos</button>
+                        <button class="gamebutton" id="perk12"></button>
+                        <button class="gamebutton" id="perk13"></button>
+                        <button class="gamebutton" id="perk17" style="background-color:rgb(88, 1, 1);">like videos automatically</button>
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">autofocus</button>
+                        <button class="gamebutton" id="perk11"></button>
+                        <button class="gamebutton" id="perk14"></button>
+                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">can play while on focus</button>
+
+                    </div>
+
+                </div>
+
+                <div class="upgradeTab" id="prestigeTab" style="display:none">
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestigeButton"></button>
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige01"></button>
+                        <button class="gamebutton" id="prestige02"></button>
+                        <button class="gamebutton" id="prestige03"></button>
+                        <button class="gamebutton" id="prestige04"></button>
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige05"></button>
+                        <button class="gamebutton" id="prestige06"></button>
+                        <button class="gamebutton" id="prestige07"></button>
+                        <button class="gamebutton" id="prestige08"></button>
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige09"></button>
+                        <button class="gamebutton" id="prestige10"></button>
+                        <button class="gamebutton" id="prestige11"></button>
+                        <button class="gamebutton" id="prestige12"></button>
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige13" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige14" style="background-color:rgb(88, 1, 1);">unlock 2 more perks (likeperks)</button>
+                        <button class="gamebutton" id="prestige15" style="background-color:rgb(88, 1, 1);">stats dont reset between prestiges</button>
+                        <button class="gamebutton" id="prestige16"></button>
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige17" style="background-color:rgb(88, 1, 1);">autobuyer 2nd row of upgrades</button>
+                        <button class="gamebutton" id="prestige18" style="background-color:rgb(88, 1, 1);">improve perk 4 again</button>
+                        <button class="gamebutton" id="prestige19" style="background-color:rgb(88, 1, 1);">unlock focus button</button>
+                        <button class="gamebutton" id="prestige20" style="background-color:rgb(88, 1, 1);">unlock 2 more upgrades (focus video speed / duration)</button>
+
+                    </div>
+                    
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige21" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige22" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige23" style="background-color:rgb(88, 1, 1);">unlock 2 more perks</button>
+                        <button class="gamebutton" id="prestige24" style="background-color:rgb(88, 1, 1);">improves scaling cost of upgrade 3</button>
+
+                    </div>
+                                        
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige25" style="background-color:rgb(88, 1, 1);">autoliker is always active and doesnt consume perk slot</button>
+                        <button class="gamebutton" id="prestige26" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige27" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige28" style="background-color:rgb(88, 1, 1);">unlock 2 more upgrades(focus multiplier / cooldown)</button>
+
+                    </div>
+                                        
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige29" style="background-color:rgb(88, 1, 1);">removes downside from perk 7</button>
+                        <button class="gamebutton" id="prestige30" style="background-color:rgb(88, 1, 1);">get one extra perk slot</button>
+                        <button class="gamebutton" id="prestige31" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige32" style="background-color:rgb(88, 1, 1);">unlock 2 more perks(autofocus)</button>
+
+                    </div>
+                                        
+                    <br>
+
+                    <div class="upgrades">
+
+                        <button class="gamebutton" id="prestige33" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige34" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige35" style="background-color:rgb(88, 1, 1);">get one extra perks slot</button>
+                        <button class="gamebutton" id="prestige36" style="background-color:rgb(88, 1, 1);">unlock the end</button>
+
+                    </div>
+                    
+                </div>
+
+                <div class="upgradeTab" id="statsTab" style="display:none">
+
+                    <br>
+
+                    <p id="totalDopamineText"></p>
+                    <p id="numVodsWatchedText"></p>
+                    <p id="diffVodsWatchedText"></p>
+                    <p id="numLikedVideosText" style="display: none"></p>
+                    <p id="resetTimeText"></p>
+                    <p id="totalInsomniaText" style="display: none"></p>
+
+                </div>
+
+                <div class="upgradeTab" id="galleryTab" style="display:none">
+
+                    <br>
+
+                    <p>not done yet</p>
+                    <br>
+                    <p>TO-DO LIST</p>
+                    <p>     - add all buttons</p>
+                    <p>     - add end</p>
+                    <p>     - save, export/import</p>
+                    <p>     - add gallery</p>
+                    <p>     - make it pretty</p>
+                    <p>     - testing, bugfixing andbalance changes</p>
+                    
+
+                </div>
+
+                <div class="upgradeTab" id="settingsTab" style="display:none">
+
+                    <br>
+
+                    <p>not done yet</p>
+                    <br>
+                    <p>TO-DO LIST</p>
+                    <p>     - add all buttons</p>
+                    <p>     - add end</p>
+                    <p>     - save, export/import</p>
+                    <p>     - add gallery</p>
+                    <p>     - make it pretty</p>
+                    <p>     - testing, bugfixing andbalance changes</p>
+
+                </div>
+
+
+
+            </div>
+
+            <div class="progressBarCosa">
+
+                <p style=" text-shadow: 0px 0px 4px black" id="progressNumber"></p>
+                <div class="progressBarBg"> </div>
+                <div class="progressBar" id="progressBarDisplay"> </div>
+
+            </div>
+
+        </div>
+
+        <script src="jsjs.js"></script>
+
+    </body>
+</html>
