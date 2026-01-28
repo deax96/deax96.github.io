@@ -3,6 +3,10 @@ html {
     overflow: hidden;
 }
 
+html * {
+    font-family: "arial";
+}
+
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: rgb(230, 230, 230);
@@ -226,5 +230,4 @@ body{
                 z-index: -4;
                 border-radius: 1vmin;
             }
-
 

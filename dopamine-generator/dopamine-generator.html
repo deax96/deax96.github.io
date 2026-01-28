@@ -3,7 +3,7 @@
     <head>
 
         <title>yooo</title>
-        <link rel="stylesheet" href="aos.css">
+        <link rel="stylesheet" href="dopamine-generator.css">
 
         <!--- <style>
             p{
@@ -34,7 +34,7 @@
 
             <button class="topbutton">
 
-                    <p> <a href="index.html">home</a> </p>
+                    <p> <a href="../index.html">home</a> </p>
 
             </button>
 
@@ -71,15 +71,15 @@
 
                     <button class="tabbutton" id="upgradesMenuButton" style="color:rgb(255, 255, 255)">Upgrades</button>
                     <p>|</p>
-                    <button class="tabbutton"  id="perksMenuButton">Perks</button>
+                    <button class="tabbutton" id="perksMenuButton">Perks</button>
+                    <p id="prestigeMenuBar">|</p>
+                    <button class="tabbutton" id="prestigeMenuButton">Prestige</button>
                     <p>|</p>
-                    <button class="tabbutton"  id="prestigeMenuButton">Prestige</button>
+                    <button class="tabbutton" id="statsMenuButton">Stats</button>
+                    <p id="galleryMenuBar" style="display:none">|</p>
+                    <button class="tabbutton" id="galleryMenuButton" style="display:none">Gallery</button>
                     <p>|</p>
-                    <button class="tabbutton"  id="statsMenuButton">Stats</button>
-                    <p>|</p>
-                    <button class="tabbutton"  id="galleryMenuButton">Gallery</button>
-                    <p>|</p>
-                    <button class="tabbutton"  id="settingsMenuButton">Settings</button>
+                    <button class="tabbutton" id="settingsMenuButton">Settings</button>
                         
                 </div>
 
@@ -91,9 +91,9 @@
                     <div class="upgrades">
 
                         <button class="gamebutton" id="upgrade01"></button>
+                        <button class="gamebutton" id="upgrade02"></button>
                         <button class="gamebutton" id="upgrade03"></button>
-                        <button class="gamebutton" id="upgrade06"></button>
-                        <button class="gamebutton" id="upgrade07"></button>
+                        <button class="gamebutton" id="upgrade04"></button>
                         
                     </div>
 
@@ -101,20 +101,20 @@
 
                     <div class="upgrades">
 
-                        <button class="gamebutton" id="upgrade15"></button>
-                        <button class="gamebutton" id="upgrade09"></button>
-                        <button class="gamebutton" id="upgrade10"></button>
-                        <button class="gamebutton" id="upgrade16"></button>
+                        <button class="gamebutton" id="upgrade05"></button>
+                        <button class="gamebutton" id="upgrade06"></button>
+                        <button class="gamebutton" id="upgrade07"></button>
+                        <button class="gamebutton" id="upgrade08"></button>
 
                     </div>
 
                     <br>
                     
                     <div class="upgrades">
-                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus multiplier</button>
-                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus game speed</button>
-                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus duration</button>
-                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">focus cooldown</button>
+                        <button class="gamebutton" id="upgrade09" style="background-color:rgb(88, 1, 1);">premium videos chance</button>
+                        <button class="gamebutton" id="upgrade10" style="background-color:rgb(88, 1, 1);">premium videos multiplier</button>
+                        <button class="gamebutton" id="upgrade11" style="background-color:rgb(88, 1, 1);">focus duration</button>
+                        <button class="gamebutton" id="upgrade12" style="background-color:rgb(88, 1, 1);">focus charge</button>
 
                     </div>
 
@@ -126,31 +126,31 @@
                 
                     <div class="upgrades">
 
+                        <button class="gamebutton" id="perk01"></button>
                         <button class="gamebutton" id="perk02"></button>
-                        <button class="gamebutton" id="perk04"></button>
+                        <button class="gamebutton" id="perk03"></button>
+                        <button class="gamebutton" id="perk04"></button>                        
+
+                    </div>
+
+                    <br>
+
+                    <div class="upgrades">
+
                         <button class="gamebutton" id="perk05"></button>
-                        <button class="gamebutton" id="perk08"></button>                        
+                        <button class="gamebutton" id="perk06"></button>
+                        <button class="gamebutton" id="perk07"></button>
+                        <button class="gamebutton" id="perk08"></button>
 
                     </div>
 
                     <br>
 
                     <div class="upgrades">
-
-                        <button class="gamebutton" id="perk16" style="background-color:rgb(88, 1, 1);">mult based on number of liked videos</button>
-                        <button class="gamebutton" id="perk12"></button>
-                        <button class="gamebutton" id="perk13"></button>
-                        <button class="gamebutton" id="perk17" style="background-color:rgb(88, 1, 1);">like videos automatically</button>
-
-                    </div>
-
-                    <br>
-
-                    <div class="upgrades">
-                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">autofocus</button>
+                        <button class="gamebutton" id="perk09" style="background-color:rgb(88, 1, 1);">autofocus</button>
+                        <button class="gamebutton" id="perk10"></button>
                         <button class="gamebutton" id="perk11"></button>
-                        <button class="gamebutton" id="perk14"></button>
-                        <button class="gamebutton" style="background-color:rgb(88, 1, 1);">can play while on focus</button>
+                        <button class="gamebutton" id="perk12" style="background-color:rgb(88, 1, 1);">no se!</button>
 
                     </div>
 
@@ -203,8 +203,8 @@
 
                     <div class="upgrades">
 
-                        <button class="gamebutton" id="prestige13" style="background-color:rgb(88, 1, 1);"></button>
-                        <button class="gamebutton" id="prestige14" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige13"></button>
+                        <button class="gamebutton" id="prestige14"></button>
                         <button class="gamebutton" id="prestige15"></button>
                         <button class="gamebutton" id="prestige16"></button>
 
@@ -226,7 +226,7 @@
                     <div class="upgrades">
 
                         <button class="gamebutton" id="prestige21" style="background-color:rgb(88, 1, 1);"></button>
-                        <button class="gamebutton" id="prestige22" style="background-color:rgb(88, 1, 1);"></button>
+                        <button class="gamebutton" id="prestige22"></button>
                         <button class="gamebutton" id="prestige23" style="background-color:rgb(88, 1, 1);"></button>
                         <button class="gamebutton" id="prestige24" style="background-color:rgb(88, 1, 1);"></button>
 
@@ -327,7 +327,7 @@
 
         </div>
 
-        <script src="jsjs.js"></script>
+        <script src="dopamine-generator.js"></script>
 
     </body>
 </html>
