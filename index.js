@@ -1,6 +1,6 @@
 let cmd = ""
-let helpList = ["'help' : provides a list of available commands", "'apps' : provides a list of available apps", "'run dopamine' : opens app dopamine generator 0.7.3", "'run chatself' : opens app chatself 0.1"]
-let appList = [["dopamine generator 0.7.3", "dopamine-generator/dopamine-generator.html", "An incremental game I'm currently working on"], 
+let helpList = ["'help' : provides a list of available commands", "'apps' : provides a list of available apps", "'run dopamine' : opens app dopamine generator 0.8.1", "'run chatself' : opens app chatself 0.1"]
+let appList = [["dopamine generator 0.8.1", "dopamine-generator/dopamine-generator.html", "An incremental game I'm currently working on"], 
                 ["chatself 0.1", "chatself/chatself.html", "A chat/journal application"]]
 let cursorBar = ""
 
