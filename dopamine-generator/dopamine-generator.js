@@ -1,7 +1,8 @@
-let totalScore = 0n;
 let currentScore = 0n;
+let totalScore = 0n;
 let currentInsomnia = 0n;
 let totalInsomnia = 0n;
+let totalPrestiges = 0n
 let totalTime = 0;
 let scrollerCooldown = true;
 let scrollerSpeed = 1000;
@@ -37,10 +38,10 @@ const varUpgrade02 = {bought : 0, initCost : 200n, currentCost: 0n, costMult: 25
 const varUpgrade03 = {bought : 0, initCost : 100000n, currentCost: 0n, costMult: 10000000000n, locked: false}
 const varUpgrade04 = {bought : 0, initCost : 5n, currentCost: 0n, costMult: 2n, locked: false}
 
-const varUpgrade05 = {bought : 0, initCost : 5000000000000000000000000000n, currentCost: 0n, costMult: 200n, locked: true}
+const varUpgrade05 = {bought : 0, initCost : 500000000000000000000000000000000n, currentCost: 0n, costMult: 500n, locked: true}
 const varUpgrade06 = {bought : 0, initCost : 50000n, currentCost: 0n, costMult: 5n, locked: true}
 const varUpgrade07 = {bought : 0, initCost : 20000n, currentCost: 0n, costMult: 5n, locked: true}
-const varUpgrade08 = {bought : 0, initCost : 1000000000000n, currentCost: 0n, costMult: 5000n, locked: true}
+const varUpgrade08 = {bought : 0, initCost : 10000000000000000000000n, currentCost: 0n, costMult: 10000n, locked: true}
 
 const upgradesMap = new Map();
 
@@ -56,12 +57,12 @@ upgradesMap.set("08", varUpgrade08);
 
 let multPerk02 = 1n;
 let multPerk03 = 1n;
-let multPerk10 = 1n;
 let multPerk05 = 1n;
 let multPerk06 = 1n;
-let gameSpeedPerk06 = 1;
+let videoSpeedPerk06 = 1;
 let multPerk07 = 1n;
-let gameSpeedPerk07 = 1;
+let videoSpeedPerk07 = 1;
+let gameSpeedPerk10 = 1;
 let multPerk11 = 1n;
 
 const varPerk01 = {cost : 200n, active: false, bought: false, locked: false}
@@ -69,10 +70,10 @@ const varPerk02 = {cost : 3000n, active: false, bought: false, locked: false}
 const varPerk03 = {cost : 1000n, active: false, bought: false, locked: false}
 const varPerk04 = {cost : 50n, active: false, bought: false, locked: false}
 
-const varPerk05 = {cost : 1n, active: false, bought: false, locked: true}
+const varPerk05 = {cost : 500000000000000000000000000000n, active: false, bought: false, locked: true}
 const varPerk06 = {cost : 2000000000000000000n, active: false, bought: false, locked: true}
 const varPerk07 = {cost : 2000000000000000000n, active: false, bought: false, locked: true}
-const varPerk08 = {cost : 1n, active: false, bought: false, locked: true}
+const varPerk08 = {cost : 10000000000000000000000000n, active: false, bought: false, locked: true}
 
 const varPerk10 = {cost : 1000000n, active: false, bought: false, locked: true}
 const varPerk11 = {cost : 10000n, active: false, bought: false, locked: true}
@@ -95,6 +96,8 @@ perksMap.set("11", varPerk11);
 
 let multPrestige01 = 1n;
 let multPrestige08 = 1n;
+let multPrestige26 = 1n;
+let multPrestige31 = 1n;
 
 const varPrestige01 = {cost : 1n, bought: false}
 const varPrestige02 = {cost : 2n, bought: false}
@@ -181,11 +184,12 @@ prestigesMap.set("35", varPrestige35);
 prestigesMap.set("36", varPrestige36);
 
 function saveGame(){
-    localStorage.version = "1.8.1";
+    localStorage.version = "1.8.2";
     localStorage.totalScore = totalScore;
     localStorage.currentScore = currentScore;
     localStorage.totalInsomnia = totalInsomnia;
     localStorage.currentInsomnia = currentInsomnia;
+
     var saveUpgrades = []
     for (var [key, value] of upgradesMap) { saveUpgrades.push(value.bought); }
     localStorage.saveUpgrades = JSON.stringify(saveUpgrades);
@@ -195,10 +199,17 @@ function saveGame(){
     var savePrestiges = []
     for (var [key, value] of prestigesMap) { savePrestiges.push(value.bought); }
     localStorage.savePrestiges = JSON.stringify(savePrestiges);
+
+    localStorage.numVideosWatched = numVideosWatched;
+    localStorage.numLikedVideos = numLikedVideos;
+    localStorage.differentVideosWatched = JSON.stringify(differentVideosWatched);
+    localStorage.resetTime = resetTime;
+    localStorage.totalTime = totalTime;
+    localStorage.totalPrestiges = totalPrestiges;
 }
 
 function loadGame(){ 
-    if (localStorage.version == null || localStorage.version != "1.8.1"){
+    if (localStorage.version == null || localStorage.version != "1.8.2"){
         localStorage.clear();
     }
     else{
@@ -206,6 +217,8 @@ function loadGame(){
         currentScore = BigInt(localStorage.currentScore);
         totalInsomnia = BigInt(localStorage.totalInsomnia);
         currentInsomnia = BigInt(localStorage.currentInsomnia);
+        totalPrestiges = BigInt(localStorage.totalPrestiges);
+
         var saveUpgrades = JSON.parse(localStorage.saveUpgrades)
         for (var [key, value] of upgradesMap) {
             value.bought = saveUpgrades[0];
@@ -221,6 +234,12 @@ function loadGame(){
             if( savePrestiges[0] == true){ activatePrestige(key); }
             savePrestiges = savePrestiges.slice(1)
         }
+        
+        numVideosWatched = BigInt(localStorage.numVideosWatched);
+        numLikedVideos = BigInt(localStorage.numLikedVideos);
+        differentVideosWatched = JSON.parse(localStorage.differentVideosWatched);
+        resetTime = localStorage.resetTime;
+        totalTime = localStorage.totalTime;
     }
 
 
@@ -244,7 +263,7 @@ function resetVariables(){
     if(prestigesMap.get("02").bought){ baseDopamine = 10n; }
     else{ baseDopamine = 1n; }
 
-    if(!prestigesMap.get("22").bought){ 
+    if(!prestigesMap.get("15").bought){ 
         totalScore = 0n;
         numVideosWatched = 0n;
         numLikedVideos = 0n;
@@ -254,11 +273,11 @@ function resetVariables(){
 
     multPerk02 = 1n;
     multPerk03 = 1n;
-    multPerk10 = 1n;
     multPerk06 = 1n;
-    gameSpeedPerk06 = 1;
+    videoSpeedPerk06 = 1;
     multPerk07 = 1n;
-    gameSpeedPerk07 = 1;
+    videoSpeedPerk07 = 1;
+    gameSpeedPerk10 = 1;
     multPerk11 = 1n;
     //premiumChance = 5;
     //premiumMult = 10n;
@@ -285,6 +304,11 @@ function resetVariables(){
     if(prestigesMap.get("06").bought){
         perksMap.get("01").bought = true;
         activatePerk("01");
+    }
+
+    if(prestigesMap.get("25").bought){
+        perksMap.get("08").bought = true;
+        activatePerk("08");
     }
 
     barDisplay.style.animation = 'none';
@@ -316,7 +340,7 @@ let normalVideos = ["da vinki.png", "shubidubidu.png", "subway guy.png", "scar d
     "tsktsk.png", "acai.png", "blueshirt.png", "diff abby.png", "balloondie.png", "asmrkid.png", "wspeed.png", "kngrejo.png", 
     "4bigguys.png", "disbelief.png", "hitormiss.png", "apple.png", "asdfpie.png", "nihowdy.png", "dirtman.png", "sodapop.png",
     "justaweekaway.png", "fortinaiti.png", "fightdance.png", "phonkdance.png", "backstreet ds3.png", "griffmass amogus.png",
-    "chenmi lei bulang.png", "michelo.png"]
+    "chenmi lei bulang.png", "michelo.png", "vsauceballs.png", "thinggoesbad.png", "bassplanet.png"]
 //let premiumVideos = []
 
 loadGame();
@@ -328,7 +352,6 @@ var timer = setInterval(tickTimer, 1000);
 function tickTimer(){
     resetTime++;
     totalTime++;
-    //cambiar esto por displayStats() o algo asi
     displayPoints();
 }
 
@@ -427,13 +450,13 @@ function getScrollerPoints( videoDuration ){
             else{ aux = aux + BigInt(Math.round(aux2 / 1000) ** 3 ) }
         }
     }
-    let totalPoints = multUpgrade01 * multPerk02 * multPerk03 * multUpgrade03 * multPerk10 * multPerk07 * multPerk11  * multPrestige01 * multPrestige08 * multPerk05 * aux / multPerk06;
+    let totalPoints = multUpgrade01 * multPerk02 * multPerk03 * multUpgrade03 * multPrestige26 * multPrestige31 * multPerk07 * multPerk11  * multPrestige01 * multPrestige08 * multPerk05 * aux / multPerk06;
     if (totalPoints < 1) {totalPoints = 1n; }
     return totalPoints;
 }
 
 function getScrollerSpeed(){
-    return scrollerSpeed / (scrollerSpeedUpgrade02 * gameSpeedUpgrade03 * gameSpeedUpgrade08 * focusSpeed);
+    return scrollerSpeed / (scrollerSpeedUpgrade02 * getGameSpeed() );
 }
 
 function getVideoDuration(){
@@ -444,9 +467,12 @@ function getVideoDuration(){
 }
 
 function getVideoSpeed(){
-    return gameSpeedPerk06 * gameSpeedPerk07 / (gameSpeedUpgrade03  * gameSpeedUpgrade08 * focusSpeed);
+    return videoSpeedPerk06 * videoSpeedPerk07 / getGameSpeed();
 }
 
+function getGameSpeed(){
+    return gameSpeedUpgrade03  * gameSpeedUpgrade08 * gameSpeedPerk10 * focusSpeed;
+}
 
 function scroller(){
 
@@ -567,7 +593,11 @@ function displayPoints(){
 
     if(prestigesMap.get("01").bought){
         multPrestige01 = 1n + totalInsomnia;
-        prestige01.innerHTML = "multiplier based on total insomnia<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige01); 
+        if(multPrestige01 > 100000000000n){
+            multPrestige01 = 10000000000n
+            prestige01.innerHTML = "multiplier based on total insomnia<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige01)+" (capped)"; 
+        }
+        else{ prestige01.innerHTML = "multiplier based on total insomnia<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige01); }
     }
     else{ 
         multPrestige01 = 1n;
@@ -616,11 +646,11 @@ function displayPoints(){
     if(prestigesMap.get("08").bought){
         multPrestige08 = BigInt(Math.ceil(resetTime/10) );
         if (multPrestige08  < 1) {multPrestige08  = 1n;}
-        prestige08.innerHTML = "multiplier based on time spent in this reset<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige08); 
+        prestige08.innerHTML = "multiplier based on time spent in this prestige<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige08); 
     }
     else{ 
         multPrestige08 = 1n;
-        prestige08.innerHTML = "multiplier based on time spent in this reset<br><br>cost: " + notation(prestigesMap.get("08").cost) + " insomnia"; 
+        prestige08.innerHTML = "multiplier based on time spent in this prestige<br><br>cost: " + notation(prestigesMap.get("08").cost) + " insomnia"; 
     }
 
     if(prestigesMap.get("09").bought){
@@ -642,8 +672,8 @@ function displayPoints(){
         prestige10.innerHTML = "unlock the like button (liked videos give x4 dopamine)<br><br>cost: " + notation(prestigesMap.get("10").cost) + " insomnia"; 
     }
 
-    if(prestigesMap.get("11").bought){ prestige11.innerHTML = "improve perk 06<br><br>purchased!"; }
-    else{ prestige11.innerHTML = "improve perk 06<br><br>cost: " + notation(prestigesMap.get("11").cost) + " insomnia"; }
+    if(prestigesMap.get("11").bought){ prestige11.innerHTML = "remove downside from perk 06<br><br>purchased!"; }
+    else{ prestige11.innerHTML = "remove downside from perk 06<br><br>cost: " + notation(prestigesMap.get("11").cost) + " insomnia"; }
 
     if(prestigesMap.get("12").bought){
         upgradesMap.get("05").locked = false
@@ -667,12 +697,8 @@ function displayPoints(){
     }
     else{ prestige14.innerHTML = "unlock 2 more perks<br><br>cost: " + notation(prestigesMap.get("14").cost) + " insomnia"; }
 
-    if(prestigesMap.get("15").bought){ 
-        galleryMenuBar.style.display = "flex"; 
-        galleryMenuButton.style.display = "flex"; 
-        prestige15.innerHTML = "unlock the gallery tab<br><br>purchased!"; 
-    }
-    else{ prestige15.innerHTML = "unlock the gallery tab<br><br>cost: " + notation(prestigesMap.get("15").cost) + " insomnia"; }
+    if(prestigesMap.get("15").bought){ prestige15.innerHTML = "stats dont reset between prestiges<br><br>purchased!"; }
+    else{ prestige15.innerHTML = "stats dont reset between prestiges<br><br>cost: " + notation(prestigesMap.get("15").cost) + " insomnia"; }
 
     if(prestigesMap.get("16").bought){ prestige16.innerHTML = "get an extra perk slot<br><br>purchased!"; }
     else{ prestige16.innerHTML = "get an extra perk slot<br><br>cost: " + notation(prestigesMap.get("16").cost) + " insomnia"; }
@@ -691,9 +717,9 @@ function displayPoints(){
     if(prestigesMap.get("19").bought){
         focusButton.style.display = "flex"; 
         focusButtonBg.style.display = "flex"; 
-        prestige19.innerHTML = "unlock the focus button (game speed x10 while focusing)<br><br>purchased!"; 
+        prestige19.innerHTML = "unlock the focus button<br><br>purchased!"; 
     }
-    else{ prestige19.innerHTML = "unlock the focus button (game speed x10 while focusing)<br><br>cost: " + notation(prestigesMap.get("19").cost) + " insomnia"; }
+    else{ prestige19.innerHTML = "unlock the focus button (game speed x1.5 while focusing)<br><br>cost: " + notation(prestigesMap.get("19").cost) + " insomnia"; }
 
     if(prestigesMap.get("20").bought){ prestige20.innerHTML = "unlock 2 more upgrades (focus video speed / duration)<br><br>purchased!"; } //sin implementar
     else{ prestige20.innerHTML = "unlock 2 more upgrades (focus video speed / duration)<br><br>cost: " + notation(prestigesMap.get("20").cost) + " insomnia"; }
@@ -701,10 +727,18 @@ function displayPoints(){
     if(prestigesMap.get("21").bought){ prestige21.innerHTML = "XXXXX<br><br>purchased!"; } //sin implementar
     else{ prestige21.innerHTML = "XXXXX<br><br>cost: " + notation(prestigesMap.get("21").cost) + " insomnia"; }
     
-    if(prestigesMap.get("22").bought){ prestige22.innerHTML = "stats dont reset between prestiges<br><br>purchased!"; }
-    else{ prestige22.innerHTML = "stats dont reset between prestiges<br><br>cost: " + notation(prestigesMap.get("22").cost) + " insomnia"; }
+    if(prestigesMap.get("22").bought){
+        galleryMenuBar.style.display = "flex"; 
+        galleryMenuButton.style.display = "flex"; 
+        prestige22.innerHTML = "unlock the gallery tab<br><br>purchased!"; 
+    }
+    else{ prestige22.innerHTML = "unlock the gallery tab<br><br>cost: " + notation(prestigesMap.get("22").cost) + " insomnia"; }
 
-    if(prestigesMap.get("23").bought){ prestige23.innerHTML = "unlock 2 more perks<br><br>purchased!"; } //sin implementar
+    if(prestigesMap.get("23").bought){ 
+        perksMap.get("10").locked = false
+        perksMap.get("11").locked = false
+        prestige23.innerHTML = "unlock 2 more perks<br><br>purchased!"; 
+    }
     else{ prestige23.innerHTML = "unlock 2 more perks<br><br>cost: " + notation(prestigesMap.get("23").cost) + " insomnia"; }
 
     if(prestigesMap.get("24").bought){ prestige24.innerHTML = "reduce cost scaling of upgrade 05<br><br>purchased!"; } //sin implementar
@@ -713,8 +747,10 @@ function displayPoints(){
     if(prestigesMap.get("25").bought){ prestige25.innerHTML = "autoliker is always active and doesnt consume perk slot<br><br>purchased!"; } //sin implementar
     else{ prestige25.innerHTML = "autoliker is always active and doesnt consume perk slot<br><br>cost: " + notation(prestigesMap.get("25").cost) + " insomnia"; }
 
-    if(prestigesMap.get("26").bought){ prestige26.innerHTML = "multiplier based on number of resets<br><br>purchased!"; } //sin implementar
-    else{ prestige26.innerHTML = "multiplier based on number of resets<br><br>cost: " + notation(prestigesMap.get("26").cost) + " insomnia"; }
+    if(prestigesMap.get("26").bought){ 
+        multPrestige26 = 1n + totalPrestiges;
+        prestige26.innerHTML = "multiplier based on number of prestiges<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige26); }
+    else{ prestige26.innerHTML = "multiplier based on number of prestiges<br><br>cost: " + notation(prestigesMap.get("26").cost) + " insomnia"; }
 
     if(prestigesMap.get("27").bought){ prestige27.innerHTML = "XXXXX<br><br>purchased!"; } //sin implementar
     else{ prestige27.innerHTML = "XXXXX<br><br>cost: " + notation(prestigesMap.get("27").cost) + " insomnia"; }
@@ -722,14 +758,22 @@ function displayPoints(){
     if(prestigesMap.get("28").bought){ prestige28.innerHTML = "unlock 2 more upgrades(focus multiplier / cooldown)<br><br>purchased!"; } //sin implementar
     else{ prestige28.innerHTML = "unlock 2 more upgrades(focus multiplier / cooldown)<br><br>cost: " + notation(prestigesMap.get("28").cost) + " insomnia"; }
 
-    if(prestigesMap.get("29").bought){ prestige29.innerHTML = "removes downside from perk 07<br><br>purchased!"; } //sin implementar
-    else{ prestige29.innerHTML = "removes downside from perk 07<br><br>cost: " + notation(prestigesMap.get("29").cost) + " insomnia"; }
+    if(prestigesMap.get("29").bought){ prestige29.innerHTML = "remove downside from perk 07<br><br>purchased!"; } //sin implementar
+    else{ prestige29.innerHTML = "remove downside from perk 07<br><br>cost: " + notation(prestigesMap.get("29").cost) + " insomnia"; }
 
-    if(prestigesMap.get("30").bought){ prestige30.innerHTML = "get one extra perk slot<br><br>purchased!"; } //sin implementar
-    else{ prestige30.innerHTML = "get one extra perk slot<br><br>cost: " + notation(prestigesMap.get("30").cost) + " insomnia"; }
+    if(prestigesMap.get("30").bought){ prestige30.innerHTML = "get an extra perk slot<br><br>purchased!"; }
+    else{ prestige30.innerHTML = "get an extra perk slot<br><br>cost: " + notation(prestigesMap.get("30").cost) + " insomnia"; }
 
-    if(prestigesMap.get("31").bought){ prestige31.innerHTML = "XXXXX<br><br>purchased!"; } //sin implementar
-    else{ prestige31.innerHTML = "XXXXX<br><br>cost: " + notation(prestigesMap.get("31").cost) + " insomnia"; }
+    if (numVideosWatched < 1) {aux = 1n;}
+    else{
+        aux = bigRoot(numVideosWatched, 2n);
+        if (aux < 1) {aux = 1n;}
+    }
+    if(prestigesMap.get("31").bought){ 
+        multPrestige31 = aux;
+        prestige31.innerHTML = "dopamine multiplier based on videos watched<br><br>purchased!<br><br>current multiplier: x"+notation(multPrestige31); 
+    }
+    else{ prestige31.innerHTML = "dopamine multiplier based on videos watched<br><br>cost: " + notation(prestigesMap.get("31").cost) + " insomnia"; }
 
     if(prestigesMap.get("32").bought){ prestige32.innerHTML = "unlock 2 more perks(autofocus)<br><br>purchased!"; } //sin implementar
     else{ prestige32.innerHTML = "unlock 2 more perks(autofocus)<br><br>cost: " + notation(prestigesMap.get("32").cost) + " insomnia"; }
@@ -740,14 +784,29 @@ function displayPoints(){
     if(prestigesMap.get("34").bought){ prestige34.innerHTML = "XXXXX<br><br>purchased!"; } //sin implementar
     else{ prestige34.innerHTML = "XXXXX<br><br>cost: " + notation(prestigesMap.get("34").cost) + " insomnia"; }
 
-    if(prestigesMap.get("35").bought){ prestige35.innerHTML = "get one extra perks slot<br><br>purchased!"; } //sin implementar
-    else{ prestige35.innerHTML = "get one extra perks slot<br><br>cost: " + notation(prestigesMap.get("35").cost) + " insomnia"; }
+    if(prestigesMap.get("35").bought){ prestige35.innerHTML = "get an extra perk slot<br><br>purchased!"; }
+    else{ prestige35.innerHTML = "get an extra perk slot<br><br>cost: " + notation(prestigesMap.get("35").cost) + " insomnia"; }
 
     if(prestigesMap.get("36").bought){ prestige36.innerHTML = "unlock the end<br><br>purchased!"; } //sin implementar
     else{ prestige36.innerHTML = "unlock the end<br><br>cost: " + notation(prestigesMap.get("36").cost) + " insomnia"; }
 
-
-
+    //DEBUG
+    let thisline = true
+    let nextline = true
+    aux = 0
+    for (var [key, value] of prestigesMap) {
+        if (!thisline || (key == "36" && !nextline)){
+            document.getElementById("prestige"+key).disabled = true;
+            document.getElementById("prestige"+key).innerHTML = "locked";
+            continue;
+        }
+        if (!prestigesMap.get(key).bought){ nextline = false; }
+        aux++;
+        if (aux >= 4){
+            aux = 0;
+            thisline = nextline;
+        }
+    }
 
 
 
@@ -826,34 +885,34 @@ function displayPoints(){
     if(perksMap.get("06").active){
         if(!prestigesMap.get("11").bought){
             multPerk06 = 3n;
-            gameSpeedPerk06 = 0.2;
+            videoSpeedPerk06 = 0.2;
         }
         else{
             multPerk06 = 1n;
-            gameSpeedPerk06 = 0.125;
+            videoSpeedPerk06 = 0.2;
         }
         
     }
     else{  
         multPerk06 = 1n;
-        gameSpeedPerk06 = 1;
+        videoSpeedPerk06 = 1;
     }
     if(!prestigesMap.get("11").bought) {
         if(perksMap.get("06").bought){ perk06.innerHTML = "watch videos x5 faster but dopamine generated x0.33<br><br>purchased" }
         else{ perk06.innerHTML = "watch videos x5 faster but dopamine generated x0.33<br><br>cost: " + notation(perksMap.get("06").cost) + " dopamine"; }
     }
     else{
-        if(perksMap.get("06").bought){ perk06.innerHTML = "watch videos x8 faster<br><br>purchased" }
-    else{ perk06.innerHTML = "watch videos x8 faster<br><br>cost: " + notation(perksMap.get("06").cost) + " dopamine"; }
+        if(perksMap.get("06").bought){ perk06.innerHTML = "watch videos x5 faster<br><br>purchased" }
+    else{ perk06.innerHTML = "watch videos x5 faster<br><br>cost: " + notation(perksMap.get("06").cost) + " dopamine"; }
     }
     
     if(perksMap.get("07").active){ 
         multPerk07 = 100n; 
-        gameSpeedPerk07 = 10;
+        videoSpeedPerk07 = 10;
     }
     else{  
         multPerk07 = 1n;
-        gameSpeedPerk07 = 1;
+        videoSpeedPerk07 = 1;
     }
     if(perksMap.get("07").bought){ perk07.innerHTML = "watch videos x10 slower but dopamine generated x100<br><br>purchased!"; }
     else{ perk07.innerHTML = "watch videos x10 slower but dopamine generated x100<br><br>cost: " + notation(perksMap.get("07").cost) + " dopamine"; }
@@ -862,19 +921,14 @@ function displayPoints(){
     if(perksMap.get("08").bought){ perk08.innerHTML = "like videos automatically<br><br>purchased!<br><br>"; }
     else{ perk08.innerHTML = "like videos automatically<br><br>cost: " + notation(perksMap.get("08").cost) + " dopamine"; }
 
-    if (numVideosWatched < 1) {aux = 1n;}
-    else{
-        aux = bigRoot(numVideosWatched, 2n);
-        if (aux < 1) {aux = 1n;}
-    }
-    if(perksMap.get("10").active){ multPerk10 = aux; }
-    else{ multPerk10 = 1n; }
-    if(perksMap.get("10").bought){ perk10.innerHTML = "dopamine multiplier based on videos watched<br><br>purchased!<br><br>current multiplier: x" + notation(aux); }
-    else{ perk10.innerHTML = "dopamine multiplier based on videos watched<br><br>cost: " + notation(perksMap.get("10").cost) + " dopamine"; }
+    if(perksMap.get("10").active){ gameSpeedPerk10 = 1.5; }
+    else{ gameSpeedPerk10 = 1; }
+    if(perksMap.get("10").bought){ perk10.innerHTML = "game speed x1.5 faster<br><br>purchased!"; }
+    else{ perk10.innerHTML = "game speed x1.5 faster<br><br>cost: " + notation(perksMap.get("10").cost) + " dopamine"; }
 
     aux = BigInt(differentVideosWatched.length); 
     if (aux < 1) {aux = 1n;}
-    if(perksMap.get("11").active){ multPerk11 = aux; }
+    if(perksMap.get("11").active){ multPerk11 = aux; } //no me gusta en general, cambiar
     else{ multPerk11 = 1n; }
     if(perksMap.get("11").bought){ perk11.innerHTML = "dopamine multiplier based on number of different videos watched<br><br>purchased!<br><br>current multiplier: x" + notation(aux); }
     else{ perk11.innerHTML = "dopamine multiplier based on number of different videos watched<br><br>cost: " + notation(perksMap.get("11").cost) + " dopamine"; }
@@ -897,8 +951,7 @@ function displayPoints(){
 
 
 
-
-
+    //DEBUG
     
     for (var [key, value] of upgradesMap) {
 
@@ -914,7 +967,9 @@ function displayPoints(){
         document.getElementById("perk"+key).innerHTML = "locked";
     }
 
+
     if (prestigesMap.get("06").bought){ document.getElementById("perk01").disabled = true; }
+    if (prestigesMap.get("25").bought){ document.getElementById("perk08").disabled = true; }
 
 
 
@@ -933,6 +988,7 @@ function displayPoints(){
     numLikedVideosText.innerHTML = "Total liked videos: " + notation(numLikedVideos);
     resetTimeText.innerHTML = "Total time played: " + timeNotation(resetTime);
     totalInsomniaText.innerHTML = "Total insomnia generated: " + notation(totalInsomnia);
+    totalPrestigesText.innerHTML = "Total times prestiged: " + notation(totalPrestiges);
 
     saveGame();
 
@@ -1040,13 +1096,13 @@ function activatePrestige(name){
     document.getElementById("prestige"+name).style.background = "rgb(139, 235, 139)";
     document.getElementById("prestige"+name).style.color = "rgb(36, 36, 36)";
     
-    if( ["06", "13", "16"].includes(name) ){ window["prestige"+name+"Fun"](); }
+    if( ["06", "13", "16", "25", "30", "35"].includes(name) ){ window["prestige"+name+"Fun"](); }
     displayPoints();
 }
 
 function prestige06Fun(){
     perksMap.get("01").bought = true;
-    if(perksMap.get("01").active != true){
+    if(!perksMap.get("01").active){
         perksMap.get("01").active = true;
         document.getElementById("perk01").style.background = "rgb(139, 235, 139)";
         document.getElementById("perk01").style.color = "rgb(36, 36, 36)";
@@ -1057,6 +1113,20 @@ function prestige06Fun(){
 function prestige13Fun(){ upgrade04Fun(); }
 
 function prestige16Fun(){ maxPerks++; }
+
+function prestige30Fun(){ maxPerks++; }
+
+function prestige35Fun(){ maxPerks++; }
+
+function prestige25Fun(){
+    perksMap.get("08").bought = true;
+    if(!perksMap.get("08").active){
+        perksMap.get("08").active = true;
+        document.getElementById("perk08").style.background = "rgb(139, 235, 139)";
+        document.getElementById("perk08").style.color = "rgb(36, 36, 36)";
+    }
+    else{ activePerks--; }   
+}
 
 function getInsomniaPoints(){
     if (currentScore >= 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000n){return 100000000000000000n}
@@ -1078,6 +1148,9 @@ function prestige(){
     currentDopamineText.style.height = "1%";
     currentInsomniaText.style.display = "flex";
     totalInsomniaText.style.display = "flex";
+    totalPrestigesText.style.display = "flex";
+
+    totalPrestiges = totalPrestiges + 1n
 
     resetVariables();
     displayPoints();
@@ -1110,6 +1183,7 @@ function likeFun(){
         likeButton.src = "images/heart_full.png"
     }
     else{
+        if (perksMap.get("08").active){ return; }
         likedVideo = false;
         likeButton.src = "images/heart_blank.png"
     }
@@ -1130,8 +1204,8 @@ function focusUpFun(){
 function focusActiveFun(){
     focusButton.src = "images/focus_open.png"; 
     focusButtonBg.src = "images/focus_open.png";  
-    focusSpeed = 10;
-    focusChargeVal = focusChargeVal - 1;
+    focusSpeed = 1.5;
+    focusChargeVal = focusChargeVal - 2;
     focusButton.style.maskImage = "linear-gradient(rgba(0, 0, 0, 0) "+(100-focusChargeVal)+"%, black "+(100-focusChargeVal)+"%)";
 
     if (focusChargeVal <= 0){
