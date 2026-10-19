@@ -1,3 +1,13 @@
+:root {
+  --main-bg-color: rgb(26, 26, 26);
+  --main-button-color: rgb(36, 36, 36);
+  --main-fg-color: rgb(139, 235, 139);
+  --main-dissabled-color: rgb(7, 7, 7);
+  --main-highlight-color: rgb(230, 230, 230);
+  --main-border-color: rgb(155, 155, 155)
+}
+
+
 html {
     height: 100%;
     overflow: hidden;
@@ -9,7 +19,7 @@ html * {
 
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
-    color: rgb(230, 230, 230);
+    color: var(--main-highlight-color);
 }
 
 body{
@@ -17,8 +27,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(26, 26, 26);
-    color: rgb(230, 230, 230);
+    background-color: var(--main-bg-color);
+    color: var(--main-fg-color);
     text-align: center;
 }
 
@@ -31,7 +41,7 @@ body{
         flex-direction: row;
         align-items: center;
         justify-content: right;
-        background-color: rgb(36, 36, 36);
+        background-color: var(--main-bg-color);
     }
 
         .topbutton{
@@ -42,9 +52,9 @@ body{
             height: 100%;
             width: 80px;
             text-align: center;
-            background-color: rgb(36, 36, 36);
-            color: rgb(139, 235, 139);
-            border: 2px rgb(155, 155, 155) solid;
+            background-color: var(--main-bg-color);
+            color: var(--main-fg-color);
+            border: 2px var(--main-border-color) solid;
             margin-left: -2px;
             cursor: pointer;
         }
@@ -72,9 +82,9 @@ body{
             aspect-ratio: 9 / 16;
             text-align: center;
             position: sticky;
-            background-color: rgb(36, 36, 36);
-            color: rgb(139, 235, 139);
-            border: 2px rgb(155, 155, 155) solid;
+            background-color: var(--main-bg-color);
+            color: var(--main-fg-color);
+            border: 2px var(--main-border-color) solid;
             margin-left: -2px;
             border-radius: 2vmin;
         }
@@ -147,9 +157,9 @@ body{
         }
             .tabbutton{
                 text-align: center;
-                background-color: rgb(26, 26, 26);
-                color: rgb(139, 235, 139);
-                border: 1px rgb(26, 26, 26) solid;
+                background-color: var(--main-bg-color);
+                color: var(--main-fg-color);
+                border: 1px var(--main-bg-color) solid;
                 cursor: pointer;
             }
 
@@ -161,7 +171,7 @@ body{
                     align-items: center;
                     height: 100%;
                     overflow-y: auto;
-                    scrollbar-color: rgb(255, 255, 255) rgb(26, 26, 26);
+                    scrollbar-color: var(--main-fg-color) var(--main-bg-color);
             }
 
                 .upgrades{
@@ -183,9 +193,9 @@ body{
                         width: 22%;
                         height: 100%;
                         text-align: center;
-                        background-color: rgb(36, 36, 36);
-                        color: rgb(139, 235, 139);
-                        border: 2px rgb(155, 155, 155) solid;
+                        background-color: var(--main-button-color);
+                        color: var(--main-fg-color);
+                        border: 2px var(--main-border-color) solid;
                         cursor: pointer;
                         border-radius: 1vmin;
                         padding: 0.8%;
@@ -193,7 +203,7 @@ body{
                     }
 
                     .gamebutton:disabled {
-                        background-color: black;
+                        background-color: var(--main-dissabled-color);
                         cursor: default;
                         }
 
@@ -214,7 +224,7 @@ body{
                 height: 100%;
                 width: 100%;
                 text-align: center;
-                background-color: rgb(7, 7, 7);
+                background-color: var(--main-dissabled-color);
                 z-index: -5;
                 border-radius: 1vmin;
             }

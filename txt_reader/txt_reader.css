@@ -1,0 +1,65 @@
+:root {
+  --main-size: 1.0;
+}
+
+html * {
+font-family: "EB Garamond";
+}
+body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(27, 26, 32);
+    color: rgb(230, 230, 230);
+    text-align: center;
+}
+p {
+    margin: 0.0vh;
+    line-height: 1.5;
+    font-size: calc(1.1em*var(--main-size));
+    text-align: justify;
+    padding: min(calc(2.5em*var(--main-size)), 100px, 5vw);
+}
+a {
+    color: rgb(235, 241, 147);
+}
+
+.topbar{
+    top: 0px;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 5;
+    margin: 0.0vh;
+        
+}
+
+    .topbutton{
+        width: max(50px,min(10vw, 5em));
+        margin-top: min(1em, 1vh, 1vw);
+        margin-right: min(1em, 1vh, 1vw);
+    }
+
+.pagebg{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;       
+}
+
+.page{
+    background-color: rgb(246, 248, 214);
+    color: rgb(20, 7, 15);
+    width: min(94vw,calc(32em*var(--main-size)));
+    height: min(141vw,calc(48em*var(--main-size)));
+    margin-bottom: calc(0.5em*var(--main-size));
+}
+
+.test{
+    width: min(94vw,calc(32em*var(--main-size)));
+    height: min(141vw,calc(48em*var(--main-size)));
+    visibility: hidden;
+}

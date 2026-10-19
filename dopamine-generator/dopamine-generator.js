@@ -24,6 +24,35 @@ let pauseSave = false;
 //let premiumMult = 10n;
 //let premiumActive = false;
 
+
+let initBgColor = "rgb(53, 5, 21)";
+let initButtonColor = "rgb(109, 7, 49)";
+let initFgColor = "rgb(240, 238, 130)";
+let initDissabledColor = "rgb(20, 8, 8)";
+let initHighlightColor = "rgb(255, 190, 241)";
+let initBorderColor = "rgb(221, 84, 125)";
+
+let finalBgColor = "rgb(19, 19, 19)";
+let finalButtonColor = "rgb(31, 31, 31)";
+let finalFgColor = "rgb(151, 151, 151)";
+let finalDissabledColor = "rgb(8, 8, 8)";
+let finalHighlightColor = "rgb(224, 224, 224)";
+let finalBorderColor = "rgb(68, 68, 68)";
+
+const bgColor = {initRed: 53, initGreen: 5, initBlue: 21, finalRed: 19, finalGreen: 19, finalBlue: 19}
+const buttonColor = {initRed: 109, initGreen: 7, initBlue: 49, finalRed: 31, finalGreen: 31, finalBlue: 31}
+const fgColor = {initRed: 240, initGreen: 238, initBlue: 130, finalRed: 151, finalGreen: 151, finalBlue: 151}
+const dissabledColor = {initRed: 20, initGreen: 8, initBlue: 8, finalRed: 8, finalGreen: 8, finalBlue: 8}
+const highlightColor = {initRed: 255, initGreen: 190, initBlue: 241, finalRed: 224, finalGreen: 224, finalBlue: 224}
+const borderColor = {initRed: 221, initGreen: 84, initBlue: 125, finalRed: 68, finalGreen: 68, finalBlue: 68}
+
+/*let bgColor = "rgb(19, 19, 19)";
+let buttonColor = "rgb(31, 31, 31)";
+let fgColor = "rgb(151, 151, 151)";
+let dissabledColor = "rgb(8, 8, 8)";
+let highlightColor = "rgb(224, 224, 224)";
+let borderColor = "rgb(68, 68, 68)";*/
+
 //UPGRADES
 
 let multUpgrade01 = 1n;
@@ -213,7 +242,7 @@ prestigesMap.set("36", varPrestige36);
 
 function saveGame(){
     if (pauseSave){return;}
-    localStorage.version = "0.8.5";
+    localStorage.version = "0.8.7";
     localStorage.totalScore = totalScore;
     localStorage.currentScore = currentScore;
     localStorage.totalInsomnia = totalInsomnia;
@@ -238,7 +267,7 @@ function saveGame(){
 }
 
 function loadGame(){ 
-    if (localStorage.version == null || localStorage.version != "0.8.5"){
+    if (localStorage.version == null || localStorage.version != "0.8.7"){
         localStorage.clear();
     }
     else{
@@ -324,9 +353,9 @@ function resetVariables(){
     }
 
     for (var [key, value] of perksMap) {
-        document.getElementById("perk"+key).style.background = "rgb(36, 36, 36)";
-        document.getElementById("perk"+key).style = "disabled: background-color: black;";
-        document.getElementById("perk"+key).style.color = "rgb(139, 235, 139)";
+        document.getElementById("perk"+key).style.background = "var(--main-button-color)";
+        document.getElementById("perk"+key).style = "disabled: background-color: var(--main-dissabled-color);";
+        document.getElementById("perk"+key).style.color = "var(--main-fg-color)";
         value.active = false;
         value.bought = false;
     }
@@ -540,7 +569,7 @@ function scroller(){
     scrollButton.style.opacity = "33%";
     likeButton.src = "images/heart_blank.png"
     likeButton.style.opacity = "33%";
-    //scrollBox.style.background = "rgb(0, 0, 0)";
+    //scrollBox.style.background = dissabledColor;
     scrollButton.style.cursor = "wait";
     scrollBox.style.cursor = "wait";
     likeButton.style.cursor = "default";
@@ -1059,7 +1088,12 @@ function displayPoints(){
     if (prestigesMap.get("33").bought){ document.getElementById("perk09").disabled = true; }
 
 
-
+    document.documentElement.style.setProperty("--main-bg-color", getColor(bgColor));
+    document.documentElement.style.setProperty("--main-button-color", getColor(buttonColor));
+    document.documentElement.style.setProperty("--main-fg-color", getColor(fgColor));
+    document.documentElement.style.setProperty("--main-dissabled-color", getColor(dissabledColor));
+    document.documentElement.style.setProperty("--main-highlight-color", getColor(highlightColor));
+    document.documentElement.style.setProperty("--main-border-color", getColor(borderColor));
 
 
     currentDopamineText.innerHTML = "current dopamine: " + notation(currentScore);
@@ -1174,15 +1208,15 @@ function buyPerk(name){
 
 function activatePerk(name){
     perksMap.get(name).active = true;
-    document.getElementById("perk"+name).style.background = "rgb(139, 235, 139)";
-    document.getElementById("perk"+name).style.color = "rgb(36, 36, 36)";
+    document.getElementById("perk"+name).style.background = "var(--main-fg-color)";
+    document.getElementById("perk"+name).style.color = "var(--main-button-color";
 }
 
 function deactivatePerk(name){
     perksMap.get(name).active = false;
-    document.getElementById("perk"+name).style.background = "rgb(36, 36, 36)";
-    document.getElementById("perk"+name).style = "disabled: background-color: black;";
-    document.getElementById("perk"+name).style.color = "rgb(139, 235, 139)";
+    document.getElementById("perk"+name).style.background = "var(--main-button-color";
+    document.getElementById("perk"+name).style = "disabled: background-color: var(--main-dissabled-color);";
+    document.getElementById("perk"+name).style.color = "var(--main-fg-color)";
 }
 
 
@@ -1195,8 +1229,8 @@ function buyPrestige(name){
 
 function activatePrestige(name){
     prestigesMap.get(name).bought = true;
-    document.getElementById("prestige"+name).style.background = "rgb(139, 235, 139)";
-    document.getElementById("prestige"+name).style.color = "rgb(36, 36, 36)";
+    document.getElementById("prestige"+name).style.background = "var(--main-fg-color)";
+    document.getElementById("prestige"+name).style.color = "var(--main-button-color)";
     
     if( ["06", "13", "17", "22", "25", "30", "33"].includes(name) ){ window["prestige"+name+"Fun"](); }
 }
@@ -1205,8 +1239,8 @@ function prestige06Fun(){
     perksMap.get("01").bought = true;
     if(!perksMap.get("01").active){
         perksMap.get("01").active = true;
-        document.getElementById("perk01").style.background = "rgb(139, 235, 139)";
-        document.getElementById("perk01").style.color = "rgb(36, 36, 36)";
+        document.getElementById("perk01").style.background = "var(--main-fg-color)";
+        document.getElementById("perk01").style.color = "var(--main-button-color)";
     }
     else{ activePerks--; }   
 }
@@ -1221,8 +1255,8 @@ function prestige25Fun(){
     perksMap.get("08").bought = true;
     if(!perksMap.get("08").active){
         perksMap.get("08").active = true;
-        document.getElementById("perk08").style.background = "rgb(139, 235, 139)";
-        document.getElementById("perk08").style.color = "rgb(36, 36, 36)";
+        document.getElementById("perk08").style.background = "var(--main-fg-color)";
+        document.getElementById("perk08").style.color = "var(--main-button-color)";
     }
     else{ activePerks--; }   
 }
@@ -1231,8 +1265,8 @@ function prestige33Fun(){
     perksMap.get("09").bought = true;
     if(!perksMap.get("09").active){
         perksMap.get("09").active = true;
-        document.getElementById("perk09").style.background = "rgb(139, 235, 139)";
-        document.getElementById("perk09").style.color = "rgb(36, 36, 36)";
+        document.getElementById("perk09").style.background = "var(--main-fg-color)";
+        document.getElementById("perk09").style.color = "var(--main-button-color)";
     }
     else{ activePerks--; }   
 }
@@ -1381,11 +1415,22 @@ function changeMenu(tab){
     for (const e of ["upgrades", "perks", "prestige", "stats", "gallery", "settings"]){
         if (e == tab){ 
             document.getElementById(e+"Tab").style.display = "flex";
-            document.getElementById(e+"MenuButton").style.color = "rgb(255, 255, 255)";
+            document.getElementById(e+"MenuButton").style.color = "var(--main-highlight-color)";
         }
         else{ 
             document.getElementById(e+"Tab").style.display = "none";
-            document.getElementById(e+"MenuButton").style.color = "rgb(139, 235, 139)";
+            document.getElementById(e+"MenuButton").style.color = "var(--main-fg-color)";
         }
     }
+}
+
+function getColor(color){
+    score = Number(big10Log(currentScore))/100
+    if (score<0){score = 0;}
+    if (score>1){score = 1;}
+    let returnRed = color.initRed * (1-score) + color.finalRed * score;
+    let returnGreen = color.initGreen * (1-score) + color.finalGreen * score;
+    let returnBlue = color.initBlue * (1-score) + color.finalBlue * score;
+    
+    return("rgb("+String(returnRed)+", "+String(returnGreen)+", "+String(returnBlue)+")")
 }

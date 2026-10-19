@@ -1,7 +1,8 @@
 let cmd = ""
-let helpList = ["'help' : provides a list of available commands", "'apps' : provides a list of available apps", "'run dopamine' : opens app dopamine generator 0.8.1", "'run chatself' : opens app chatself 0.1"]
-let appList = [["dopamine generator 0.8.1", "dopamine-generator/dopamine-generator.html", "An incremental game I'm currently working on"], 
-                ["chatself 0.1", "chatself/chatself.html", "A chat/journal application"]]
+let helpList = ["'help' : provides a list of available commands", "'apps' : provides a list of available apps", "'run dopamine' : opens app dopamine generator 0.8.7", "'run chatself' : opens app chatself 0.1", "'run txtreader' : opens app txt reader 1.0"]
+let appList = [["dopamine generator 0.8.7", "dopamine-generator/dopamine-generator.html", "An incremental game I'm currently working on"], 
+            ["chatself 0.1", "chatself/chatself.html", "A chat/journal application"],
+            ["txt reader 1.0", "txt_reader/txt_reader.html", "A .txt reader in a comfortable format"]]
 let cursorBar = ""
 
 setInterval(cursorTimer, 600);
@@ -77,6 +78,7 @@ function run(){
     let thisApp = cmd.replace("run ", "")
     if (thisApp == "dopamine"){ window.open("dopamine-generator/dopamine-generator.html","_self"); }
     else if (thisApp == "chatself"){ window.open("chatself/chatself.html","_self"); }
+    else if (thisApp == "txtreader"){ window.open("txt_reader/txt_reader.html","_self"); }
     else{
         newEntry = document.createElement("p");
         newEntry.innerHTML = "App not found, please type 'help' to get a list of available commands";
